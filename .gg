@@ -1,0 +1,40 @@
+i=1
+HERE=`pwd`
+VALID_HERE=${HERE//\//\\\/}
+ALREADY_EXIST=`grep ^${HERE}$ $1`
+declare -a godirs
+while true; do
+  [[ $2 = "a" ]] && [[ x${ALREADY_EXIST} = "x" ]] && sed -i "/^EOF/i\\${HERE}" $1 
+  [[ $2 = "a" ]] && break
+
+  [[ $2 = "d" ]] && [[ x${ALREADY_EXIST} != "x" ]] && sed -i "/^${VALID_HERE}$/d" $1
+  [[ $2 = "d" ]] && break
+
+  while true ; do
+    read line
+    
+    if [ $? -ne 0 ] ; then
+        break
+    fi
+    [[ -d $line ]] || continue
+    echo -e "\033[$(( 31 + $i % 3 ));40m" $i: $line
+    godirs[$i]=$line
+    let i=$i+1
+  done <<-EOF
+/var/spool/cron
+EOF
+# ===== end of here-document =====
+
+echo -e "\033[0m"
+if [[ $2 =~ ^[1-9]{1}$ ]]; then
+    n=$2
+else
+    echo -n 'where to go? '
+    read -n1 -t30 n
+    echo
+fi
+
+[[ x${godirs[${n}]} != "x" ]] && cd ${godirs[${n}]}
+break
+done
+
