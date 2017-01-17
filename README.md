@@ -18,3 +18,8 @@ gg a              # add current path to your favorites
 gg d              # del current path from your favorites
 ```
 
+## not bash?
+question is, buildin command `read` different from bash.  
+
+- bash "-n1" read one character
+- zsh "-k" read one character
