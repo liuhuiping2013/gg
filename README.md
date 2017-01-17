@@ -9,7 +9,9 @@ cp .gg ~
 vim .bashrc # add lines like below  
 alias gg='. ~/.gg ~/.gg'  
 ```
-    now relogin your accout, good luck!  
+
+now relogin your accout, good luck!  
+
 ## usage
 ```bash
 gg                # show all your favorite path, and then you can choose one to enter
