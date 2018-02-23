@@ -22,6 +22,7 @@ set -o nounset                              # Treat unset variables as an error
 main()
 {
     echo 'install successful now'
+    curl https://raw.githubusercontent.com/liuhuiping2013/onewaygg/master/.gg -o ~/.gg_saved
 }
 
 main
