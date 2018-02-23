@@ -21,6 +21,10 @@ set -o nounset                              # Treat unset variables as an error
 
 main()
 {
+    if [[ -f ~/.gg ]]; then
+        echo "file ~/.gg already exist, if you want to continue, move it please"
+        return
+    fi
     curl https://raw.githubusercontent.com/liuhuiping2013/onewaygg/master/.gg -o ~/.gg_saved
     echo 'install successful now'
 }
