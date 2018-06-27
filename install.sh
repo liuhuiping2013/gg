@@ -66,7 +66,7 @@ main()
   
   cp ~/.zshrc ~/.zshrc-ggtemp
   cat >> ~/.zshrc-ggtemp <<EOF
-alias c='source ${GG}'
+alias c='source ${GG}/zshgg'
 EOF
   mv -f ~/.zshrc-ggtemp ~/.zshrc
 
