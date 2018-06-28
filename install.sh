@@ -24,7 +24,7 @@ EOF
   echo 'Please look over the ~/.bashrc file to check the alias c.'
   echo ''
   printf "${NORMAL}"
-  env zsh
+  env bash
   
 }
 
