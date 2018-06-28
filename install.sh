@@ -1,7 +1,65 @@
+install_bash_c()
+{
+  if grep -q "^alias c=" ~/.bashrc; then
+    printf "${YELLOW}You already have alias gg setting. ${NORMAL}\n"
+    printf "You'll need to remove alias gg if you want to re-install.\n"
+    exit
+  fi
+  
+  cp ~/.bashrc ~/.bashrc-ggtemp
+  cat >> ~/.bashrc-ggtemp <<EOF
+alias c='source ${GG}/bashgg'
+EOF
+  mv -f ~/.bashrc-ggtemp ~/.bashrc
+
+  printf "${GREEN}"
+  echo '                                                 '
+  echo '             _______  ______                     '
+  echo '            / / / /  / / / /                     '
+  echo '           / /_/ /  / /_/ /                      '
+  echo '           \__, /  /\__, /                       '
+  echo '          /____/   /____/   ....is now installed!'
+  echo ''
+  echo ''
+  echo 'Please look over the ~/.bashrc file to check the alias c.'
+  echo ''
+  printf "${NORMAL}"
+  env zsh
+  
+}
+
+install_zsh_c()
+{
+  if grep -q "^alias c=" ~/.zshrc; then
+    printf "${YELLOW}You already have alias gg setting. ${NORMAL}\n"
+    printf "You'll need to remove alias gg if you want to re-install.\n"
+    exit
+  fi
+  
+  cp ~/.zshrc ~/.zshrc-ggtemp
+  cat >> ~/.zshrc-ggtemp <<EOF
+alias c='source ${GG}/zshgg'
+EOF
+  mv -f ~/.zshrc-ggtemp ~/.zshrc
+
+  printf "${GREEN}"
+  echo '                                                 '
+  echo '             _______  ______                     '
+  echo '            / / / /  / / / /                     '
+  echo '           / /_/ /  / /_/ /                      '
+  echo '           \__, /  /\__, /                       '
+  echo '          /____/   /____/   ....is now installed!'
+  echo ''
+  echo ''
+  echo 'Please look over the ~/.zshrc file to check the alias c.'
+  echo ''
+  printf "${NORMAL}"
+  env zsh
+  
+}
+
 main()
 {
-  # check current user shell
-
   # Use colors, but only if connected to a terminal, and that terminal
   # supports them.
   if which tput >/dev/null 2>&1; then
@@ -58,32 +116,20 @@ main()
     exit 1
   }
 
-  if grep -q "^alias c=" ~/.zshrc; then
-    printf "${YELLOW}You already have alias gg setting. ${NORMAL}\n"
-    printf "You'll need to remove alias gg if you want to re-install.\n"
-    exit
-  fi
-  
-  cp ~/.zshrc ~/.zshrc-ggtemp
-  cat >> ~/.zshrc-ggtemp <<EOF
-alias c='source ${GG}/zshgg'
-EOF
-  mv -f ~/.zshrc-ggtemp ~/.zshrc
+  # check current user shell
+  MY_LOGIN_SHELL=$(getent passwd $LOGNAME | cut -d: -f7)
+  MY_LOGIN_SHELL=$(basename ${MY_LOGIN_SHELL})
 
-  printf "${GREEN}"
-  echo '                                                 '
-  echo '             _______  ______                     '
-  echo '            / / / /  / / / /                     '
-  echo '           / /_/ /  / /_/ /                      '
-  echo '           \__, /  /\__, /                       '
-  echo '          /____/   /____/   ....is now installed!'
-  echo ''
-  echo ''
-  echo 'Please look over the ~/.zshrc file to check the alias c.'
-  echo ''
-  printf "${NORMAL}"
-  env zsh
+  echo "${MY_LOGIN_SHELL}"
   
+  case ${MY_LOGIN_SHELL} in
+    bash ) install_bash_c
+      ;;
+    zsh ) install_zsh_c
+      ;;
+    * ) echo "${MY_LOGIN_SHELL} not supported"
+      ;;
+  esac
 }
 
 main

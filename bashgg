@@ -1,14 +1,14 @@
 i=1
 HERE=`pwd`
 VALID_HERE=${HERE//\//\\\/}
-[[ ! -f ~/.gg/zshdir ]] && touch ~/.gg/zshdir
-ALREADY_EXIST=`grep ^${HERE}$ ~/.gg/zshdir`
+[[ ! -f ~/.gg/zshdir ]] && touch ~/.gg/bashdir
+ALREADY_EXIST=`grep ^${HERE}$ ~/.gg/bashdir`
 declare -a godirs
 while true; do
-  [[ $1 = "a" ]] && [[ x${ALREADY_EXIST} = "x" ]] && echo "${HERE}" >> ~/.gg/zshdir
+  [[ $1 = "a" ]] && [[ x${ALREADY_EXIST} = "x" ]] && echo "${HERE}" >> ~/.gg/bashdir
   [[ $1 = "a" ]] && break
 
-  [[ $1 = "d" ]] && [[ x${ALREADY_EXIST} != "x" ]] && sed -i "/^${VALID_HERE}$/d" ~/.gg/zshdir
+  [[ $1 = "d" ]] && [[ x${ALREADY_EXIST} != "x" ]] && sed -i "/^${VALID_HERE}$/d" ~/.gg/bashdir
   [[ $1 = "d" ]] && break
 
   while true ; do
@@ -21,14 +21,14 @@ while true; do
     echo -e "\033[$(( 31 + $i % 3 ));40m" $i: $line
     godirs[$i]=$line
     let i=$i+1
-  done < ~/.gg/zshdir
+  done < ~/.gg/bashdir
 
 echo -e "\033[0m"
 if [[ $1 =~ ^[1-9]{1}$ ]]; then
     n=$1
 else
     echo -n 'where to go? '
-    read -k 1 -t30 n
+    read -n1 -t30 n
     echo
 fi
 
