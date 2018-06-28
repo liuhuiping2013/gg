@@ -32,7 +32,7 @@ else
     echo
 fi
 
-if [[ $1 =~ ^[1-9]{1}$ ]]; then
+if [[ $n =~ ^[1-9]{1}$ ]]; then
     [[ "x"${godirs[${n}]} != "x" ]] && cd ${godirs[${n}]}
 fi
 
