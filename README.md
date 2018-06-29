@@ -17,7 +17,3 @@ c <num>           # fast enter your favorite path as upon
 c a               # add current path to your favorites
 c d               # del current path from your favorites
 ```
-
-## not zsh?
-
-bash support will be considered if this project work well.
