@@ -1,4 +1,6 @@
 # goto your favorite path fastly
+add directory bookmark, change directory (cd) to fastly by alias setting.
+support bash & zsh.
 
 ## install
 
