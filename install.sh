@@ -117,8 +117,12 @@ main()
   }
 
   # check current user shell
-  MY_LOGIN_SHELL=$(getent passwd $LOGNAME | cut -d: -f7)
-  MY_LOGIN_SHELL=$(basename ${MY_LOGIN_SHELL})
+  if [[ "$(uname)" = "Linux" ]]; then
+    MY_LOGIN_SHELL=$(getent passwd $LOGNAME | cut -d: -f7)
+    MY_LOGIN_SHELL=$(basename ${MY_LOGIN_SHELL})
+  else
+    MY_LOGIN_SHELL="zsh"
+  fi
 
   echo "${MY_LOGIN_SHELL}"
   
